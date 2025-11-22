@@ -80,17 +80,17 @@ public abstract class Parcel {
 
         switch ((getClass().getSimpleName())) { // getClass().getSimpleName() метод возвращает строку только с именем класса
             case "StandartParcel":
-                System.out.println("Посылка" + description + " упакована");
+                System.out.println("Посылка " + description + " упакована");
                 break;
             case "FragileParcel":
-                System.out.println("Посылка" + description + " упакована");
+                System.out.println("Посылка " + description + " упакована");
                 System.out.println("Посылка " + description + " упакована в защитную плёнку");
                 break;
             case "PerishableParcel":
-                System.out.println("Посылка" + description + " упакована");
+                System.out.println("Посылка " + description + " упакована");
                 break;
             default:
-                System.out.println("Тип посылки неизвестен, упаковка стандартная." + description + " ");
+                System.out.println("Тип посылки неизвестен, упаковка стандартная. " + description + " ");
                 break;
         }
     }
