@@ -5,10 +5,18 @@ import java.util.List;
 import java.util.Scanner;
 
 public class DeliveryApp {
-
+    //создаем списки посылок
     private static final Scanner scanner = new Scanner(System.in);
     private static final List<Parcel> allParcels = new ArrayList<>();
     private static final List<Trackable> trackableParcels = new ArrayList<>();
+
+    //создаем коробки с посылками
+
+    private static ParcelBox standartBox = new ParcelBox("Стандартная коробка", 0, 10);
+    private static ParcelBox fragileBox = new ParcelBox("Хрупкая коробка", 0, 15);
+    private static ParcelBox perishableBox = new ParcelBox("Коробка со сроком годности", 0, 20);
+
+
 
     public static void main(String[] args) {
         boolean running = true;
@@ -26,9 +34,19 @@ public class DeliveryApp {
                 case 3:
                     calculateCosts();
                     break;
-                case 4:
+                case 4: // с трэкингом
                     reportStatus();
                     break;
+                case 5: //стандартная коробка
+                    standartBox.viewAllParcelsInBox();
+                    break;
+                case 6: //хрупкая коорбка
+                    fragileBox.viewAllParcelsInBox();
+                    break;
+                case 7: // со сроком годности
+                    perishableBox.viewAllParcelsInBox();
+                    break;
+
                 case 0:
                     running = false;
                     break;
@@ -44,6 +62,9 @@ public class DeliveryApp {
         System.out.println("2 — Отправить все посылки");
         System.out.println("3 — Посчитать стоимость доставки");
         System.out.println("4 - Посылки с трэкингом");
+        System.out.println("5 - Стандартная коробка (показать содержимое)");
+        System.out.println("6 - Коробка с хрупкими посылками (показать содержимое)");
+        System.out.println("7 - Коробка с портящимися посылками (показать содержимое)");
         System.out.println("0 — Завершить");
     }
 
@@ -72,17 +93,20 @@ public class DeliveryApp {
             case 1:
                 StandartParcel standartParcel1 = new StandartParcel(description, weight, address, sendDay);
                 allParcels.add(standartParcel1);
+                standartBox.addParcel(standartParcel1);
                 break;
             case 2:
                 FragileParcel fragileParcel1 = new FragileParcel(description, weight, address, sendDay);
                 allParcels.add(fragileParcel1);
                 trackableParcels.add(fragileParcel1);
+                fragileBox.addParcel(fragileParcel1);
                 break;
             case 3:
                 System.out.println("Укажите срок годности вашей послыки в днях: ");
                 Integer timeToLive = Integer.parseInt(scanner.nextLine());
                 PerishableParcel perishableParcel1 = new PerishableParcel(description, weight, address, sendDay, timeToLive);
                 allParcels.add(perishableParcel1);
+                perishableBox.addParcel(perishableParcel1);
                 break;
             case 0:
 
