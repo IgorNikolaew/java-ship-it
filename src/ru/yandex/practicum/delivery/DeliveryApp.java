@@ -8,6 +8,7 @@ public class DeliveryApp {
 
     private static final Scanner scanner = new Scanner(System.in);
     private static final List<Parcel> allParcels = new ArrayList<>();
+    private static final List<Trackable> trackableParcels = new ArrayList<>();
 
     public static void main(String[] args) {
         boolean running = true;
@@ -25,6 +26,9 @@ public class DeliveryApp {
                 case 3:
                     calculateCosts();
                     break;
+                case 4:
+                    reportStatus();
+                    break;
                 case 0:
                     running = false;
                     break;
@@ -39,6 +43,7 @@ public class DeliveryApp {
         System.out.println("1 — Добавить посылку");
         System.out.println("2 — Отправить все посылки");
         System.out.println("3 — Посчитать стоимость доставки");
+        System.out.println("4 - Посылки с трэкингом");
         System.out.println("0 — Завершить");
     }
 
@@ -71,6 +76,7 @@ public class DeliveryApp {
             case 2:
                 FragileParcel fragileParcel1 = new FragileParcel(description, weight, address, sendDay);
                 allParcels.add(fragileParcel1);
+                trackableParcels.add(fragileParcel1);
                 break;
             case 3:
                 System.out.println("Укажите срок годности вашей послыки в днях: ");
@@ -86,13 +92,12 @@ public class DeliveryApp {
         }
 
 
-
         // Подсказка: спросите тип посылки и необходимые поля, создайте объект и добавьте в allParcels
     }
 
     private static void sendParcels() {
 
-        for (Parcel thisparcel : allParcels){
+        for (Parcel thisparcel : allParcels) {
             thisparcel.packageItem();
             thisparcel.deliver();
 
@@ -104,15 +109,30 @@ public class DeliveryApp {
 
     private static void calculateCosts() {
         int sum = 0;
-        for(Parcel thisparcel : allParcels){
+        for (Parcel thisparcel : allParcels) {
             sum += thisparcel.calculateDeliveryCost();
 
         }
 
-        System.out.println("Общая стоимость доставки всех посылок составит: " + sum + " рублей" );
+        System.out.println("Общая стоимость доставки всех посылок составит: " + sum + " рублей");
 
         // Посчитать общую стоимость всех доставок и вывести на экран
     }
+
+    public static void reportStatus() {
+        String newLocation;
+        System.out.println("Введите новое местоположение посылок с трэкингом");
+        newLocation = scanner.nextLine();
+
+        for (Trackable thisparcel : trackableParcels) {
+            thisparcel.reportStatus(newLocation);
+
+
+        }
+
+
+    }
+
 
 }
 

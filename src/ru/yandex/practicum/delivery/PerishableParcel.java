@@ -1,6 +1,6 @@
 package ru.yandex.practicum.delivery;
 
-public class PerishableParcel extends Parcel{
+public class PerishableParcel extends Parcel {
     private Integer timeToLive;
 
     public PerishableParcel(String description, Integer weight, String deliveryAddress, Integer sendDay, Integer timeToLive) {
@@ -10,20 +10,12 @@ public class PerishableParcel extends Parcel{
 
     //Метод только у скоропортящихся посылок
 
-    public boolean isExpired(Integer currentDay){
+    public boolean isExpired(Integer currentDay) {
         return (getSendDay() + timeToLive > currentDay); //false - посылка не испортилась
-                                                        // true - испортилась
-
-
+        // true - испортилась
 
 
     }
-
-
-
-
-
-
 
 
 }

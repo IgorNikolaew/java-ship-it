@@ -1,11 +1,9 @@
 package ru.yandex.practicum.delivery;
 
-import com.sun.source.tree.SwitchTree;
-
 import java.util.Objects;
 
 public abstract class Parcel {
-           //добавьте реализацию и другие необходимые классы
+    //добавьте реализацию и другие необходимые классы
     private String description;
     private Integer weight;
     private String deliveryAddress;
@@ -71,12 +69,8 @@ public abstract class Parcel {
     //Methods ***
 
 
-
-
-
-
     public void packageItem() { // напечатает разное для разного имени класса объекта
-         // потому, что в задании просили избежать дублирования кода
+        // потому, что в задании просили избежать дублирования кода
 
         switch ((getClass().getSimpleName())) { // getClass().getSimpleName() метод возвращает строку только с именем класса
             case "StandartParcel":
@@ -95,21 +89,27 @@ public abstract class Parcel {
         }
     }
 
-    public void deliver (){ //Доставка
-        System.out.println("Посылка " + description + " доставлена по адресу " + deliveryAddress );
+    public void deliver() { //Доставка
+        System.out.println("Посылка " + description + " доставлена по адресу " + deliveryAddress);
 
     }
 
-    public Integer calculateDeliveryCost(){ //посчитает стоимость согласно имени класса объекта
-        if (getClass().getSimpleName().equals("StandartParcel")){return weight * coastStandart;}
-        if (getClass().getSimpleName().equals("PerishableParcel")){return weight * coastPerishable;}
-        if (getClass().getSimpleName().equals("StendartParcel")){return weight * coastFragile;}
+    public Integer calculateDeliveryCost() { //посчитает стоимость согласно имени класса объекта
+        if (getClass().getSimpleName().equals("StandartParcel")) {
+            return weight * coastStandart;
+        }
+        if (getClass().getSimpleName().equals("PerishableParcel")) {
+            return weight * coastPerishable;
+        }
+        if (getClass().getSimpleName().equals("FragileParcel")) {
+            return weight * coastFragile;
+        }
 
         return 0;
     }
 
 
-    };
+};
 
 
 
