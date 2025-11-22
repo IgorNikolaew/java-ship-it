@@ -1,21 +1,28 @@
 package ru.yandex.practicum.delivery;
 
+import com.sun.source.tree.SwitchTree;
+
 import java.util.Objects;
 
 public abstract class Parcel {
            //добавьте реализацию и другие необходимые классы
     private String description;
-    private Double weight;
+    private Integer weight;
     private String deliveryAddress;
-    private String sendDay;
+    private Integer sendDay;
 
-    public Parcel(String description, Double weight, String deliveryAddress, String sendDay) {
+    private static final Integer coastStandart = 2;
+    private static final Integer coastPerishable = 3;
+    private static final Integer coastFragile = 4;
+
+    public Parcel(String description, Integer weight, String deliveryAddress, Integer sendDay) {
         this.description = description;
         this.weight = weight;
         this.deliveryAddress = deliveryAddress;
         this.sendDay = sendDay;
     }
-    // Prepare class. Equals, hashcode, get, set methods.
+    // Prepare class. Equals, hashcode, get, set methods.***
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
@@ -37,11 +44,11 @@ public abstract class Parcel {
         this.description = description;
     }
 
-    public Double getWeight() {
+    public Integer getWeight() {
         return weight;
     }
 
-    public void setWeight(Double weight) {
+    public void setWeight(Integer weight) {
         this.weight = weight;
     }
 
@@ -53,26 +60,59 @@ public abstract class Parcel {
         this.deliveryAddress = deliveryAddress;
     }
 
-    public String getSendDay() {
+    public Integer getSendDay() {
         return sendDay;
     }
 
-    public void setSendDay(String sendDay) {
+    public void setSendDay(Integer sendDay) {
         this.sendDay = sendDay;
     }
 
-    //Methods
+    //Methods ***
 
-    public void packageItem(){}
 
-    public void deliver(){}
 
-    public Double calculateDeliveryCost(){
-        return 0.0;
+
+
+
+    public void packageItem() { // напечатает разное для разного имени класса объекта
+         // потому, что в задании просили избежать дублирования кода
+
+        switch ((getClass().getSimpleName())) { // getClass().getSimpleName() метод возвращает строку только с именем класса
+            case "StandartParcel":
+                System.out.println("Посылка" + description + " упакована");
+                break;
+            case "FragileParcel":
+                System.out.println("Посылка" + description + " упакована");
+                System.out.println("Посылка " + description + " упакована в защитную плёнку");
+                break;
+            case "PerishableParcel":
+                System.out.println("Посылка" + description + " упакована");
+                break;
+            default:
+                System.out.println("Тип посылки неизвестен, упаковка стандартная." + description + " ");
+                break;
+        }
+    }
+
+    public void deliver (){ //Доставка
+        System.out.println("Посылка " + description + " доставлена по адресу " + deliveryAddress );
+
+    }
+
+    public Integer calculateDeliveryCost(){ //посчитает стоимость согласно имени класса объекта
+        if (getClass().getSimpleName().equals("StandartParcel")){return weight * coastStandart;}
+        if (getClass().getSimpleName().equals("PerishableParcel")){return weight * coastPerishable;}
+        if (getClass().getSimpleName().equals("StendartParcel")){return weight * coastFragile;}
+
+        return 0;
     }
 
 
+    };
 
 
 
-}
+
+
+
