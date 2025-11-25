@@ -19,7 +19,7 @@ public class PerishableParcel extends Parcel {
     }
 
     public boolean isExpired(Integer currentDay) {
-        return (getSendDay() + timeToLive > currentDay); //false - посылка не испортилась
+        return (getSendDay() + timeToLive <= currentDay); //false - посылка не испортилась
         // true - испортилась
 
 

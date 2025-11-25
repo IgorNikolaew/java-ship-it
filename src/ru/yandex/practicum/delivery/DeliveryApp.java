@@ -45,8 +45,12 @@ public class DeliveryApp {
                 case 7: // со сроком годности
                     perishableBox.viewAllParcelsInBox();
                     break;
-                case 8: //проверить посылки со сроком годности методом isExpired ();
-                    checkIsExpired();
+                case 8: // проверить сроки годности
+                    System.out.println("Введите сегодняшнее число (день)");
+                    Integer day = Integer.parseInt(scanner.nextLine());
+                    checkPerishableParcels(day);
+                    break;
+
                 case 0:
                     running = false;
                     break;
@@ -56,14 +60,18 @@ public class DeliveryApp {
         }
     }
 
-    private static void checkIsExpired() {
-        for(Parcel perishableBox : ){
-
-
+    public static void checkPerishableParcels(Integer day){
+        List<Parcel> box = perishableBox.getBox();
+        for (Parcel parcel : box) {
+            if (parcel instanceof PerishableParcel) { //Проверяем тип. Иначе компиллятор не работает
+                PerishableParcel perishableParcel = (PerishableParcel) parcel; // явное приведение типов
+                if (perishableParcel.isExpired(day)) {
+                    System.out.println("Посылка " + perishableParcel.getDescription() + " испортилась");
+                } else {
+                    System.out.println("Посылка " + perishableParcel.getDescription() + " ещё годна");
+                }
+            }
         }
-
-
-
     }
 
     private static void showMenu() {
@@ -75,7 +83,7 @@ public class DeliveryApp {
         System.out.println("5 - Стандартная коробка (показать содержимое)");
         System.out.println("6 - Коробка с хрупкими посылками (показать содержимое)");
         System.out.println("7 - Коробка с портящимися посылками (показать содержимое)");
-        System.out.println("8 - Проверить годность посылок со сроком годности");
+        System.out.println("8 - Проверить срок годности посылок портящихся посылок");
         System.out.println("0 — Завершить");
     }
 
