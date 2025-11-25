@@ -17,7 +17,6 @@ public class DeliveryApp {
     private static ParcelBox perishableBox = new ParcelBox("Коробка со сроком годности", 0, 20);
 
 
-
     public static void main(String[] args) {
         boolean running = true;
         while (running) {
@@ -75,39 +74,100 @@ public class DeliveryApp {
         System.out.println("Укажите описание посылки: ");
         String description = scanner.nextLine();
 
+
         System.out.println("Сообщите нам адрес доставки посылки: ");
         String address = scanner.nextLine();
 
-        System.out.println("Укажите вес посылки в кг (целое число): ");
-        Integer weight = Integer.parseInt(scanner.nextLine());
+        //System.out.println("Укажите вес посылки в кг (целое число): ");
+        //Integer weight = Integer.parseInt(scanner.nextLine());
 
-        System.out.println("Укажите день отправки посылки (номер дня месяца): ");
-        Integer sendDay = Integer.parseInt(scanner.nextLine());
+
+        Integer weight = null; // посмотрел такую конструкцию и понял, как она работает внешне
+        while (weight == null) {
+            System.out.println("Укажите вес посылки в кг (целое число): ");
+            String input = scanner.nextLine().trim();
+
+            if (input.isEmpty()) {
+                System.out.println("Ошибка: вес не может быть пустым.");
+                continue;
+            }
+
+            try {
+                weight = Integer.parseInt(input);
+            } catch (NumberFormatException e) {
+                System.out.println("Ошибка: введите целое число.");
+            }
+        }
+
+
+        //System.out.println("Укажите день отправки посылки (номер дня месяца): ");
+        //Integer sendDay = Integer.parseInt(scanner.nextLine());
+
+
+        Integer sendDay = null; // посмотрел такую конструкцию и понял, как она работает внешне
+        // а вообще, на будущее надо сделать какой то отдельный класс для любого ввода данных, который возьмет на себя
+        //весь ввод, проверку и возвращение корректных результватов, чтоб не дублировать похожий код
+
+        while (sendDay == null) {
+            System.out.println("Укажите день недели: ");
+            String input = scanner.nextLine().trim();
+
+            if (input.isEmpty()) {
+                System.out.println("Ошибка: день не может быть пустым.");
+                continue;
+            }
+
+            try {
+                sendDay = Integer.parseInt(input);
+            } catch (NumberFormatException e) {
+                System.out.println("Ошибка: введите целое число.");
+            }
+        }
 
 
         System.out.println("Укажите тип посылки: 1 - Стандартная; 2 - Хрупкая; 3 - Скоропортящаяся");
-
         int type = Integer.parseInt(scanner.nextLine());
 
         switch (type) { //cоздаем и добавляем в ArrayList
             case 1:
                 StandartParcel standartParcel1 = new StandartParcel(description, weight, address, sendDay);
-                allParcels.add(standartParcel1);
-                standartBox.addParcel(standartParcel1);
-                break;
+                boolean isCorrect = Parcel.checkUserEnter(standartParcel1); //проверяем введенные данные статическим
+                // методом
+                if (isCorrect) {
+                    allParcels.add(standartParcel1);
+                    standartBox.addParcel(standartParcel1);
+                    break;
+                } else {
+                    error1();
+                    break;
+                }
+
             case 2:
                 FragileParcel fragileParcel1 = new FragileParcel(description, weight, address, sendDay);
-                allParcels.add(fragileParcel1);
-                trackableParcels.add(fragileParcel1);
-                fragileBox.addParcel(fragileParcel1);
-                break;
+                isCorrect = Parcel.checkUserEnter(fragileParcel1);
+                if (isCorrect) {
+                    allParcels.add(fragileParcel1);
+                    trackableParcels.add(fragileParcel1);
+                    fragileBox.addParcel(fragileParcel1);
+                    break;
+                } else {
+                    error1();
+                    break;
+                }
             case 3:
                 System.out.println("Укажите срок годности вашей послыки в днях: ");
                 Integer timeToLive = Integer.parseInt(scanner.nextLine());
                 PerishableParcel perishableParcel1 = new PerishableParcel(description, weight, address, sendDay, timeToLive);
-                allParcels.add(perishableParcel1);
-                perishableBox.addParcel(perishableParcel1);
-                break;
+                isCorrect = Parcel.checkUserEnter(perishableParcel1);
+                if (isCorrect) {
+                    allParcels.add(perishableParcel1);
+                    perishableBox.addParcel(perishableParcel1);
+                    break;
+                } else {
+                    error1();
+                    break;
+                }
+
             case 0:
 
                 break;
@@ -155,6 +215,10 @@ public class DeliveryApp {
         }
 
 
+    }
+
+    public static void error1() {
+        System.out.println("Ошибка 1. Данные не корректны. Добавление посылки невозможно.");
     }
 
 
