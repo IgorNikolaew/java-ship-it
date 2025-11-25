@@ -7,12 +7,12 @@ import java.util.Scanner;
 public class DeliveryApp {
     //создаем списки посылок
     private static final Scanner scanner = new Scanner(System.in);
-    private static final List<Parcel> allParcels = new ArrayList<>();
+    public static final List<Parcel> allParcels = new ArrayList<>();
     private static final List<Trackable> trackableParcels = new ArrayList<>();
 
     //создаем коробки с посылками
 
-    private static ParcelBox standartBox = new ParcelBox("Стандартная коробка", 0, 10);
+    public static ParcelBox standartBox = new ParcelBox("Стандартная коробка", 0, 10);
     private static ParcelBox fragileBox = new ParcelBox("Хрупкая коробка", 0, 15);
     private static ParcelBox perishableBox = new ParcelBox("Коробка со сроком годности", 0, 20);
 
@@ -60,7 +60,7 @@ public class DeliveryApp {
         }
     }
 
-    public static void checkPerishableParcels(Integer day){
+    public static void checkPerishableParcels(Integer day) {
         List<Parcel> box = perishableBox.getBox();
         for (Parcel parcel : box) {
             if (parcel instanceof PerishableParcel) { //Проверяем тип. Иначе компиллятор не работает

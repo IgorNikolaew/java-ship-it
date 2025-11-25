@@ -9,6 +9,6 @@ public class FragileParcel extends Parcel implements Trackable {
     @Override
     public void reportStatus(String location) {
 
-        System.out.println("Хрупкая посылка "+ getDescription() + " изменила положение на " + location);
+        System.out.println("Хрупкая посылка " + getDescription() + " изменила положение на " + location);
     }
 }

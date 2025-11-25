@@ -108,15 +108,17 @@ public abstract class Parcel {
         return 0;
     }
 
-    public static boolean checkUserEnter(Parcel obj){ // метод проверки введенных данных
+    public static boolean checkUserEnter(Parcel obj) { // метод проверки введенных данных
         if (obj.getDescription() == null ||
-             obj.getDescription().isEmpty()   ||
+                obj.getDescription().isEmpty() ||
                 obj.getDeliveryAddress() == null ||
                 obj.getDeliveryAddress().isEmpty() ||
-                obj.getWeight() <=0 ||
-                obj.getSendDay() <=0) {
+                obj.getWeight() <= 0 ||
+                obj.getSendDay() <= 0) {
             return false;
-        }   else {return true;}
+        } else {
+            return true;
+        }
     }
 
 

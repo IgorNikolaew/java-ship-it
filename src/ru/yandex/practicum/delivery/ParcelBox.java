@@ -4,12 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class ParcelBox <T extends Parcel>{
-    private String  nameOfBox;
+public class ParcelBox<T extends Parcel> {
+    private String nameOfBox;
     private Integer currentWeight;
     private Integer maxWeight;
     private List<T> box;
-
 
 
     public String getNameOfBox() {
@@ -63,42 +62,41 @@ public class ParcelBox <T extends Parcel>{
         this.box = new ArrayList<>();
     }
 
-    public void addParcel(T parcel){
+    public boolean addParcel(T parcel) {
 
-        if ((currentWeight + parcel.getWeight()) < maxWeight ) {
+        if ((currentWeight + parcel.getWeight()) < maxWeight) {
             box.add(parcel);
             System.out.println("Посылка" + parcel.getDescription() + " добавлена в коробку " + getNameOfBox());
-        }
-        else {System.out.println("X - Добавление посылки в коробку невозможно, так как будет превышен максимальный вес коробки");
+        } else {
+            System.out.println("X - Добавление посылки в коробку невозможно, так как будет превышен максимальный вес коробки");
         }
 
+        return false;
     }
 
-    public void getAllParcels(){ // достает ВСЕ посылки из коробки и оставляет её пустой
-        System.out.println("Из коробки " + getNameOfBox()+ " получены посылки: " );
+    public void getAllParcels() { // достает ВСЕ посылки из коробки и оставляет её пустой
+        System.out.println("Из коробки " + getNameOfBox() + " получены посылки: ");
 
-        for(T thisparcel : box){
+        for (T thisparcel : box) {
             System.out.println("Послыка " + thisparcel.getDescription() + " получена из коробки");
             box.remove(thisparcel);
-                    }
+        }
 
-        System.out.println("Теперь коробка " + getNameOfBox() + " пустая." );
+        System.out.println("Теперь коробка " + getNameOfBox() + " пустая.");
 
     }
 
-    public void viewAllParcelsInBox(){ //показывает посылки, находящиеся в коробке
+    public void viewAllParcelsInBox() { //показывает посылки, находящиеся в коробке
 
-        System.out.println("В коробке " + getNameOfBox() + " находится " + box.size() + " посылок: "  );
+        System.out.println("В коробке " + getNameOfBox() + " находится " + box.size() + " посылок: ");
 
-        for(T thisparcel : box){
-            System.out.println("Послыка " + thisparcel.getDescription() );
+        for (T thisparcel : box) {
+            System.out.println("Послыка " + thisparcel.getDescription());
 
         }
 
 
     }
-
-
 
 
 }
