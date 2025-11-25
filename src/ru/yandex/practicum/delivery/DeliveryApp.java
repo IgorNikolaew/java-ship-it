@@ -45,7 +45,8 @@ public class DeliveryApp {
                 case 7: // со сроком годности
                     perishableBox.viewAllParcelsInBox();
                     break;
-
+                case 8: //проверить посылки со сроком годности методом isExpired ();
+                    checkIsExpired();
                 case 0:
                     running = false;
                     break;
@@ -53,6 +54,16 @@ public class DeliveryApp {
                     System.out.println("Неверный выбор.");
             }
         }
+    }
+
+    private static void checkIsExpired() {
+        for(Parcel perishableBox : ){
+
+
+        }
+
+
+
     }
 
     private static void showMenu() {
@@ -64,6 +75,7 @@ public class DeliveryApp {
         System.out.println("5 - Стандартная коробка (показать содержимое)");
         System.out.println("6 - Коробка с хрупкими посылками (показать содержимое)");
         System.out.println("7 - Коробка с портящимися посылками (показать содержимое)");
+        System.out.println("8 - Проверить годность посылок со сроком годности");
         System.out.println("0 — Завершить");
     }
 

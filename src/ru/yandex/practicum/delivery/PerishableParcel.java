@@ -10,6 +10,14 @@ public class PerishableParcel extends Parcel {
 
     //Метод только у скоропортящихся посылок
 
+    public Integer getTimeToLive() {
+        return timeToLive;
+    }
+
+    public void setTimeToLive(Integer timeToLive) {
+        this.timeToLive = timeToLive;
+    }
+
     public boolean isExpired(Integer currentDay) {
         return (getSendDay() + timeToLive > currentDay); //false - посылка не испортилась
         // true - испортилась
