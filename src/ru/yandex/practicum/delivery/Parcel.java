@@ -1,3 +1,6 @@
+
+//Привет, Вадим! Спасибо за проверку и замечания. Их суть я понял и с ними согласен. Все исправил.
+
 package ru.yandex.practicum.delivery;
 
 import java.util.Objects;
@@ -9,9 +12,9 @@ public abstract class Parcel {
     private String deliveryAddress;
     private Integer sendDay;
 
-    private static final Integer coastStandart = 2;
-    private static final Integer coastPerishable = 3;
-    private static final Integer coastFragile = 4;
+
+
+
 
     public Parcel(String description, Integer weight, String deliveryAddress, Integer sendDay) {
         this.description = description;
@@ -69,44 +72,16 @@ public abstract class Parcel {
     //Methods ***
 
 
-    public void packageItem() { // напечатает разное для разного имени класса объекта
-        // потому, что в задании просили избежать дублирования кода
-
-        switch ((getClass().getSimpleName())) { // getClass().getSimpleName() метод возвращает строку только с именем класса
-            case "StandartParcel":
-                System.out.println("Посылка " + description + " упакована");
-                break;
-            case "FragileParcel":
-                System.out.println("Посылка " + description + " упакована");
-                System.out.println("Посылка " + description + " упакована в защитную плёнку");
-                break;
-            case "PerishableParcel":
-                System.out.println("Посылка " + description + " упакована");
-                break;
-            default:
-                System.out.println("Тип посылки неизвестен, упаковка стандартная. " + description + " ");
-                break;
-        }
-    }
+    public abstract void packageItem();
 
     public void deliver() { //Доставка
         System.out.println("Посылка " + description + " доставлена по адресу " + deliveryAddress);
 
     }
 
-    public Integer calculateDeliveryCost() { //посчитает стоимость согласно имени класса объекта
-        if (getClass().getSimpleName().equals("StandartParcel")) {
-            return weight * coastStandart;
-        }
-        if (getClass().getSimpleName().equals("PerishableParcel")) {
-            return weight * coastPerishable;
-        }
-        if (getClass().getSimpleName().equals("FragileParcel")) {
-            return weight * coastFragile;
-        }
+   public abstract Integer calculateDeliveryCost();//посчитает стоимость внутри объекта
+                                                   //
 
-        return 0;
-    }
 
     public static boolean checkUserEnter(Parcel obj) { // метод проверки введенных данных
         if (obj.getDescription() == null ||
